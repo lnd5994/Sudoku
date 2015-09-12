@@ -3,7 +3,7 @@ import struct, string, math
 
 
 class SudokuBoard:
-    """This will be the sudoku board game object your player will manipulate."""
+    """The sudoku board game object the player will manipulate."""
   
     def __init__(self, size, board):
       """the constructor for the SudokuBoard"""
@@ -100,7 +100,7 @@ def is_complete(sudoku_board):
             for i in range(subsquare):
                 for j in range(subsquare):
                     if((BoardArray[SquareRow*subsquare+i][SquareCol*subsquare+j]
-                         == BoardArray[row][col]) #if BA[row+1][col+1]==BA[row][col]; if there are any duplicates in the subsquare
+                         == BoardArray[row][col]) #if there are any duplicates in the subsquare
                         and (SquareRow*subsquare + i != row) #and not the same row #
                         and (SquareCol*subsquare + j != col)): #and not the same column #
                             return False
@@ -127,7 +127,7 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
     size = len(BoardArray)
     BoardChecker = initial_board.BoardChecker
     subsquare = int(math.sqrt(size))
-    if MCV == True:
+    if MCV == True: #solve using most constrained variable (degree) heuristic
         for row in range(size):
             for col in range(size):
                 if BoardArray[row][col]!=0: #if not empty space
@@ -199,7 +199,7 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                     initial_board = initial_board.set_value(bestRow,bestCol,0)
         return
 
-    elif LCV == True:
+    elif LCV == True: #solve using least constraining value heuristic
         for row in range(size):
             for col in range(size):
                 if BoardArray[row][col]!=0: #if not empty space
@@ -286,7 +286,7 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                                 initial_board = initial_board.set_value(row,col,0)
                     return
 
-    elif MRV == True:
+    elif MRV == True: #solve using min remaining values heuristic
         for row in range(size):
             for col in range(size):
                 if BoardArray[row][col]!=0: #if not empty space
@@ -338,7 +338,7 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                     initial_board = initial_board.set_value(selectRow,selectCol,0)
         return
 
-    elif forward_checking == True:
+    elif forward_checking == True: #solve using forward checking
         for row in range(size):
             for col in range(size):
                 if BoardArray[row][col]==0: #if empty space
@@ -366,7 +366,7 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                             if is_complete(initial_board) != True:
                                 initial_board = initial_board.set_value(row,col,0)
                     return
-    else:
+    else: #solve using backtracking
         for row in range(size):
             for col in range(size):
                 if BoardArray[row][col]==0: #if empty space
