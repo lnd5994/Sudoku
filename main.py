@@ -6,17 +6,16 @@ class SudokuBoard:
     """The sudoku board game object the player will manipulate."""
   
     def __init__(self, size, board):
-      """the constructor for the SudokuBoard"""
-      self.BoardSize = size #the size of the board
-      self.CurrentGameBoard= board #the current state of the game board
-      self.BoardChecker = [[[True for x in range(size)] for x in range(size)] for x in range (size*size)] #initialize 3D checker array
+        """the constructor for the SudokuBoard"""
+        self.BoardSize = size #the size of the board
+        self.CurrentGameBoard= board #the current state of the game board
+        self.BoardChecker = [[[True for x in range(size)] for x in range(size)] for x in range (size*size)] #initialize 3D checker array
 
     def set_value(self, row, col, value):
         """This function will create a new sudoku board object with the input
         value placed on the GameBoard row and col are both zero-indexed"""
         self.CurrentGameBoard[row][col]=value
         return SudokuBoard(self.BoardSize, self.CurrentGameBoard)
-                                                                  
                                                                   
     def print_board(self):
         """Prints the current game board. Leaves unassigned spots blank."""
@@ -198,7 +197,6 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                 if is_complete(initial_board) != True:
                     initial_board = initial_board.set_value(bestRow,bestCol,0)
         return
-
     elif LCV == True: #solve using least constraining value heuristic
         for row in range(size):
             for col in range(size):
@@ -285,7 +283,6 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                             if is_complete(initial_board) != True:
                                 initial_board = initial_board.set_value(row,col,0)
                     return
-
     elif MRV == True: #solve using min remaining values heuristic
         for row in range(size):
             for col in range(size):
@@ -337,7 +334,6 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                 if is_complete(initial_board) != True:
                     initial_board = initial_board.set_value(selectRow,selectCol,0)
         return
-
     elif forward_checking == True: #solve using forward checking
         for row in range(size):
             for col in range(size):
@@ -377,7 +373,6 @@ def solve(initial_board, forward_checking = False, MRV = False, MCV = False,
                             if is_complete(initial_board) != True:
                                 initial_board = initial_board.set_value(row,col,0)
                     return
-
 
 def conflictCheck(board, row, col, check):
     global counter6
